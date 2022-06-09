@@ -1,6 +1,7 @@
 import express from "express"
 import cors from "cors"
 import { connect } from "./libs/database.js"
+import globalErrorHandler from './middlewares/globalErrorHandler.js';
 
 
 await connect()
@@ -17,6 +18,9 @@ app.use(express.json())
 // Routes
 
 
+
+// global error handler middleware
+app.use(globalErrorHandler)
 
 // listening
 const port = process.env.PORT || 3099
