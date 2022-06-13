@@ -1,6 +1,10 @@
 import express from "express"
 import cors from "cors"
 import { connect } from "./libs/database.js"
+import uploadRouter from './routes/Upload.js'
+import loginRouter from './routes/Login.js'
+import signupRouter from './routes/Signup.js'
+import galleryRouter from './routes/Gallery.js'
 
 
 await connect()
@@ -16,6 +20,10 @@ app.use(express.json())
 
 // Routes
 
+app.use("/login", loginRouter)
+app.use("/signup", signupRouter)
+app.use("/gallery", galleryRouter)
+app.use("/upload", uploadRouter)
 
 
 // listening
