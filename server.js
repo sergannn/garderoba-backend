@@ -5,6 +5,7 @@ import uploadRouter from './routes/uploadRouter.js'
 import loginRouter from './routes/loginRouter.js'
 import signupRouter from './routes/signupRouter.js'
 import clothesRouter from './routes/clothesRouter.js'
+import globalErrorHandler from './middlewares/globalErrorHandler.js';
 
 
 await connect()
@@ -25,6 +26,9 @@ app.use("/signup", signupRouter)
 app.use("/clothes", clothesRouter)
 app.use("/upload", uploadRouter)
 
+
+// global error handler middleware
+app.use(globalErrorHandler)
 
 // listening
 const port = process.env.PORT || 3099
