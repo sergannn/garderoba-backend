@@ -4,7 +4,7 @@ const clothesRouter = express.Router()
 
 // search endpoint
 clothesRouter.get("/", async(req,res,next)=>{
-    
+    // this is supposed to populate all the pictures of the user in the closet gallery
     try {
         
         
