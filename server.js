@@ -1,7 +1,10 @@
 import express from "express"
 import cors from "cors"
 import { connect } from "./libs/database.js"
-import globalErrorHandler from './middlewares/globalErrorHandler.js';
+import uploadRouter from './routes/uploadRouter.js'
+import loginRouter from './routes/loginRouter.js'
+import signupRouter from './routes/signupRouter.js'
+import clothesRouter from './routes/clothesRouter.js'
 
 
 await connect()
@@ -17,6 +20,10 @@ app.use(express.json())
 
 // Routes
 
+app.use("/login", loginRouter)
+app.use("/signup", signupRouter)
+app.use("/clothes", clothesRouter)
+app.use("/upload", uploadRouter)
 
 
 // global error handler middleware
