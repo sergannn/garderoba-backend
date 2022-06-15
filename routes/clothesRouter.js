@@ -1,15 +1,14 @@
 import express from 'express'
+import Cloth from '../models/Cloth.js'
 
 const clothesRouter = express.Router()
 
 // search endpoint
 clothesRouter.get("/", async(req,res,next)=>{
-    // this is supposed to populate all the pictures of the user in the closet gallery
+    // this is supposed to find all the clothes of a user. 
     try {
+       
         
-        
-        
-        res.send([])
 
     } catch (error) {
         next({
@@ -19,6 +18,11 @@ clothesRouter.get("/", async(req,res,next)=>{
         })
     }
 })
+
+
+
+
+
 
 // clothRouter.patch("/:id", =>{
 

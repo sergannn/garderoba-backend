@@ -10,11 +10,12 @@ const clothSchema = new mongoose.Schema({
 
     user:       { type: Schema.Types.ObjectId, ref: "user" },
     image:      { type: String },
-    favorite:   { type: Boolean, default: false, required },
-    type:       { type: String, enum: ["top", "bottom", "full"], required },
-    color:      { type: String, required },
-    category:   { type: String, enum: ["summer", "winter", "fall", "rainy", "spring" ],required },
-    style:      {type: String, enum: ["casual", "formal", "work", "holiday" ], required }
+    favorite:   { type: Boolean, default: false },
+    type:       { type: String },
+    // type:       { required, type: String, enum: ["top", "bottom", "full"] },
+    color:      { type: String },
+    category:   { type: String, enum: ["summer", "winter", "fall", "rainy", "spring" ] },
+    style:      { type: String, enum: ["casual", "formal", "work", "holiday" ],  }
 })
 
 const Cloth = model("cloth", clothSchema)
