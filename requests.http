@@ -1,3 +1,7 @@
+#* Get Weather Key
+GET http://localhost:8000/weatherApiKey
+
+###
 @url = "http://localhost:9000"
 
 ### Create a new User
