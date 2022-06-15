@@ -6,14 +6,13 @@ import uploadRouter from './routes/uploadRouter.js'
 import loginRouter from './routes/loginRouter.js'
 import signupRouter from './routes/signupRouter.js'
 import clothesRouter from './routes/clothesRouter.js'
-import weatherApiRouter from "./WeatherApiRouter.js";
+import weatherApiRouter from "./routes/WeatherApiRouter.js";
 
 
 
 await connect()
 
 const app = express()
-console.log(process.env)
 
 // Middleware
 app.use(cors())
@@ -23,12 +22,11 @@ app.use(express.json())
 
 
 // Routes
-app.use("/weatherApiKey", weatherApiRouter)
-
 app.use("/login", loginRouter)
 app.use("/signup", signupRouter)
 app.use("/clothes", clothesRouter)
 app.use("/upload", uploadRouter)
+app.use("/weatherApiKey", weatherApiRouter)
 
 
 // global error handler middleware
