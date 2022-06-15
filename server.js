@@ -10,6 +10,8 @@ import clothesRouter from './routes/clothesRouter.js'
 await connect()
 
 const app = express()
+require('dotenv').config()
+console.log(process.env)
 
 // Middleware
 app.use(cors())
