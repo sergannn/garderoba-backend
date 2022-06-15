@@ -2,6 +2,7 @@ import express from "express"
 import cors from "cors"
 import { connect } from "./libs/database.js"
 import globalErrorHandler from './middlewares/globalErrorHandler.js';
+import weatherApiRouter from "./weatherApiRouter.js";
 
 
 await connect()
@@ -16,6 +17,7 @@ app.use(express.json())
 
 
 // Routes
+app.use("/weatherApiKey", weatherApiRouter)
 
 
 

@@ -1,0 +1,4 @@
+#* Get Weather Key
+GET http://localhost:8000/weatherApiKey
+
+###
