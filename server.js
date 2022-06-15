@@ -6,8 +6,7 @@ import uploadRouter from './routes/uploadRouter.js'
 import loginRouter from './routes/loginRouter.js'
 import signupRouter from './routes/signupRouter.js'
 import clothesRouter from './routes/clothesRouter.js'
-import weatherApiRouter from "./routes/WeatherApiRouter.js";
-import globalErrorHandler from './middlewares/globalErrorHandler.js';
+import weatherApiRouter from "./routes/weatherApiRouter.js";
 import dotenv from "dotenv"
 import bodyParser from "body-parser"
 
