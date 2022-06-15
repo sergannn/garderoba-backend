@@ -12,7 +12,6 @@ import bodyParser from "body-parser"
 
 
 const app = express()
-require('dotenv').config()
 console.log(process.env)
 
 // Middleware

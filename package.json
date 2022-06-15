@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.0.0",
   "scripts": {
-    "start": "nodemon -r dotenv/config server.js"
+    "start": "nodemon server.js"
   },
   "license": "ISC",
   "dependencies": {
