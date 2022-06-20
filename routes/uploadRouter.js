@@ -10,7 +10,7 @@ const uploadRouter = express.Router()
 // const handleUpload = uploadAPic.fields([{ name: "selectedImage", maxCount: 1 }]);
 
 uploadRouter.post("/", async(req,res,next)=>{
-    console.log(req.files);
+    // console.log(req.files);
     console.log(req.body);
 
     try {
@@ -27,6 +27,7 @@ uploadRouter.post("/", async(req,res,next)=>{
 })
 
 uploadRouter.get("/", async(req,res,next)=>{
+    
     try {
        
         const cloth = await Cloth.findById("62ac68d5f321765b93ec8c02")
