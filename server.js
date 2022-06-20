@@ -9,6 +9,7 @@ import clothesRouter from './routes/clothesRouter.js'
 import weatherApiRouter from "./routes/weatherApiRouter.js";
 import dotenv from "dotenv"
 import bodyParser from "body-parser"
+import userRouter from "./routes/userRouter.js";
 
 
 
@@ -33,6 +34,7 @@ app.use("/signup", signupRouter)
 app.use("/cloth", clothesRouter)
 app.use("/upload", uploadRouter)
 app.use("/weatherApiKey", weatherApiRouter)
+app.use("/users", userRouter)
 
 
 // global error handler middleware
