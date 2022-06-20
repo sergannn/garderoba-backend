@@ -1,7 +1,13 @@
 import express from "express";
 import Cloth from "../models/Cloth.js";
+import weatherApiRouter from "./weatherApiRouter.js";
 
 const clothesRouter = express.Router();
+
+function clothProcessor(presentWeather) {
+  // check temperature, rain, humidity and snowing parameters of weather api response
+  //
+}
 
 // search endpoint
 clothesRouter.get("/", async (req, res, next) => {

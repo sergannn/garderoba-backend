@@ -14,14 +14,17 @@ const app = express();
 
 // Middleware
 app.use(cors());
-app.use(express.json());
-dotenv.config();
 app.use(
-  bodyParser.urlencoded({
+  bodyParser.json({
     extended: true,
+    limit: "50mb",
   })
 );
-app.use(bodyParser.json());
+// app.use(express.json())
+dotenv.config();
+// app.use(bodyParser.urlencoded({
+//   extended: true
+// }));
 
 await connect();
 // app.set('trust proxy', true)
