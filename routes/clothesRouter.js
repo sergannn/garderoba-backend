@@ -16,7 +16,7 @@ clothesRouter.get("/", async(req,res,next)=>{
             message: error.message,
             originalError: error
         })
-    }
+    } 
 })
 
 

@@ -1,17 +1,17 @@
 #* Get Weather Key
-GET http://localhost:8000/weatherApiKey
+GET http://localhost:9000/weatherApiKey
 
 ###
 @url = "http://localhost:9000"
 
 ### Create a new User
-POST {{url}}/signup
+POST http://localhost:9000/users/signup
 Content-Type: application/json
 
 {
-    "username": "Test 1",
-    "email": "test1@example.org",
-    "password": "12345678",
+    "username": "Eleni 2",
+    "email": "eleni@gmails.com",
+    "password": "123456789"
 
 }
 
