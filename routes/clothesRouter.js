@@ -42,7 +42,8 @@ clothesRouter.get("/home", async (req, res, next) => {
   try {
     const clothesTopBox = await Cloth.find({ type: "top" }); //we are sending all clothes from this
     const clothesBottomBox = await Cloth.find({ type: "bottom" }); //we are sending all clothes from this
-
+    clothesTopBox.reverse();
+    clothesBottomBox.reverse();
     res.send({ clothesTopBox, clothesBottomBox });
   } catch (error) {
     next({
