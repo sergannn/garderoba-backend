@@ -26,8 +26,8 @@ uploadRouter.post("/", async (req, res, next) => {
       clothBottomBox.reverse();
       res.send(clothBottomBox);
     }
-    console.log(cloth);
-    res.send(cloth);
+    // console.log(cloth);
+    // res.send(cloth);
   } catch (error) {
     next({
       status: 400,

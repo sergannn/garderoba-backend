@@ -4,10 +4,10 @@ import weatherApiRouter from "./weatherApiRouter.js";
 
 const clothesRouter = express.Router();
 
-function clothProcessor(presentWeather) {
-  // check temperature, rain, humidity and snowing parameters of weather api response
-  //
-}
+// function clothProcessor(presentWeather) {
+//   // check temperature, rain, humidity and snowing parameters of weather api response
+//   //
+// }
 
 // search endpoint
 clothesRouter.get("/closet", async (req, res, next) => {
@@ -25,7 +25,7 @@ clothesRouter.get("/closet", async (req, res, next) => {
 });
 
 clothesRouter.get("/favorite", async (req, res, next) => {
-  // this is supposed to find all the clothes of a user.
+  // this is supposed to find all the favorite clothes of a user.
   try {
     const clothes = await Cloth.find(); //we are sending all clothes from this
     res.send(clothes);
@@ -42,9 +42,11 @@ clothesRouter.get("/home", async (req, res, next) => {
   try {
     const clothesTopBox = await Cloth.find({ type: "top" }); //we are sending all clothes from this
     const clothesBottomBox = await Cloth.find({ type: "bottom" }); //we are sending all clothes from this
+    const favorites = await Cloth.find({favorite:true})
+    
     clothesTopBox.reverse();
     clothesBottomBox.reverse();
-    res.send({ clothesTopBox, clothesBottomBox });
+    res.send({ clothesTopBox, clothesBottomBox, favorites });
   } catch (error) {
     next({
       status: 401,
@@ -55,17 +57,22 @@ clothesRouter.get("/home", async (req, res, next) => {
 });
 
 clothesRouter.put("/:id", async (req, res, next) => {
+
   console.log("req here:", req.body);
   try {
     const id = req.params.id;
     console.log("id", id);
-    const cloth = await Cloth.findByIdAndUpdate(id, req.body);
-    if (!cloth) {
-      return next(createError(404, "not found"));
-    }
+    const cloth = await Cloth.findById(id);
+    cloth.favorite = req.body.favorite
+    cloth.save();
+    
     res.send(cloth);
+    if (!cloth) {
+      return next({ status: 404, message: "not found"});
+    }
+  
   } catch (error) {
-    next(createError(400, error.message));
+    next({ status: 400, message: error.message});
   }
 
   //  remove add favorite, edit the season. for all kinds of update
