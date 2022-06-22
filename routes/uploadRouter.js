@@ -19,12 +19,12 @@ uploadRouter.post("/", async (req, res, next) => {
       const clothTopBox = await Cloth.find({ type: "top" });
       clothTopBox.reverse();
 
-      res.send(clothTopBox);
+      res.send({ clothTopBox, type: "top" });
       console.log(clothTopBox);
     } else {
       const clothBottomBox = await Cloth.find({ type: "bottom" });
       clothBottomBox.reverse();
-      res.send(clothBottomBox);
+      res.send({ clothBottomBox, type: "bottom" });
     }
     // console.log(cloth);
     // res.send(cloth);
