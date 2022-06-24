@@ -66,7 +66,7 @@ userRouter
             console.log("token",token)
 
             // ? Question: why do we need spread operator? why to json?
-            // * It is a BSON so we turn to JSON
+            // * It is a BSON so we turn it to JSON 
             res.send({ ...findUserWithSameEmail.toJSON(), token })
             console.log("registration successful");
         } catch (error) {

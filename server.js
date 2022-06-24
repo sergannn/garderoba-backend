@@ -3,13 +3,12 @@ import cors from "cors"
 import { connect } from "./libs/database.js"
 import globalErrorHandler from './middlewares/globalErrorHandler.js';
 import uploadRouter from './routes/uploadRouter.js'
-import loginRouter from './routes/loginRouter.js'
-import signupRouter from './routes/signupRouter.js'
 import clothesRouter from './routes/clothesRouter.js'
 import weatherApiRouter from "./routes/weatherApiRouter.js";
 import dotenv from "dotenv"
 import bodyParser from "body-parser"
 import userRouter from "./routes/userRouter.js";
+import checkToken from "./middlewares/checkToken.js";
 
 
 
@@ -29,11 +28,10 @@ await connect()
 
 app.use((req,res,next)=>{console.log(req.url);next()})
 // Routes
-app.use("/login", loginRouter)
-app.use("/signup", signupRouter)
-app.use("/cloth", clothesRouter)
-app.use("/upload", uploadRouter)
-app.use("/weatherApiKey", weatherApiRouter)
+
+app.use("/cloth", checkToken, clothesRouter)
+app.use("/upload", checkToken, uploadRouter)
+app.use("/weatherApiKey", checkToken, weatherApiRouter)
 app.use("/users", userRouter)
 
 
