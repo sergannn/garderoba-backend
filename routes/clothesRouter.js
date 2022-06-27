@@ -34,7 +34,7 @@ clothesRouter.get("/favorite", async (req, res, next) => {
   // this is supposed to find all the favorite clothes of a user.
   try {
     const clothes = await Cloth.find(); //we are sending all clothes from this
-    res.send(clothes);
+    res.send(clothes.reverse());
   } catch (error) {
     next({
       status: 401,
