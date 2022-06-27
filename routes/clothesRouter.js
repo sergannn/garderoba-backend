@@ -45,9 +45,12 @@ clothesRouter.get("/favorite", async (req, res, next) => {
 });
 clothesRouter.get("/home", async (req, res, next) => {
   // this is supposed to find all the clothes of a user.
+
+  console.log("query is ----", req.query);
+
   try {
-    const clothesTopBox = await Cloth.find({ type: "top" }); //we are sending all clothes from this
-    const clothesBottomBox = await Cloth.find({ type: "bottom" }); //we are sending all clothes from this
+    const clothesTopBox = await Cloth.find({type: "top", season: req.query.season}); //we are sending all clothes from this
+    const clothesBottomBox = await Cloth.find( {type: "bottom", season: req.query.season}); //we are sending all clothes from this
     const favorites = await Cloth.find({ favorite: true });
 
     clothesTopBox.reverse();

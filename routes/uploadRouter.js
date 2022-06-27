@@ -10,7 +10,7 @@ const uploadRouter = express.Router();
 
 uploadRouter.post("/", async (req, res, next) => {
   // console.log(req.files);
-  console.log(req.body);
+  // console.log(req.body);
 
   try {
     const cloth = await Cloth.create(req.body);
@@ -19,7 +19,7 @@ uploadRouter.post("/", async (req, res, next) => {
       const clothTopBox = await Cloth.find({ type: "top" });
       clothTopBox.reverse();
       res.send({ clothTopBox, type: "top" });
-      console.log(clothTopBox);
+      // console.log(clothTopBox);
     } else {
       const clothBottomBox = await Cloth.find({ type: "bottom" });
       clothBottomBox.reverse();
