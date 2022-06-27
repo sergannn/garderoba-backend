@@ -13,21 +13,21 @@ uploadRouter.post("/", async (req, res, next) => {
   console.log(req.body);
 
   try {
-    const cloth = await Cloth.create(req.body);
+    const cloth = await Cloth.create({...req.body, category: req.body.season});
 
-    if (cloth.type === "top") {
-      const clothTopBox = await Cloth.find({ type: "top" });
-      clothTopBox.reverse();
+    // if (cloth.type === "top") {
+    //   const clothTopBox = await Cloth.find({ type: "top" });
+    //   clothTopBox.reverse();
 
-      res.send(clothTopBox);
-      console.log(clothTopBox);
-    } else {
-      const clothBottomBox = await Cloth.find({ type: "bottom" });
-      clothBottomBox.reverse();
-      res.send(clothBottomBox);
-    }
+    //   res.send(clothTopBox);
+    //   console.log(clothTopBox);
+    // } else {
+    //   const clothBottomBox = await Cloth.find({ type: "bottom" });
+    //   clothBottomBox.reverse();
+    //   res.send(clothBottomBox);
+    // }
     // console.log(cloth);
-    // res.send(cloth);
+    res.send(cloth);
   } catch (error) {
     next({
       status: 400,
