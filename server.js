@@ -10,23 +10,29 @@ import bodyParser from "body-parser"
 import userRouter from "./routes/userRouter.js";
 import checkToken from "./middlewares/checkToken.js";
 
-
-
-const app = express()
+const app = express();
 
 // Middleware
-app.use(cors())
-app.use(express.json())
-dotenv.config()
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
-app.use(bodyParser.json());
+app.use(cors());
+app.use(
+  bodyParser.json({
+    extended: true,
+    limit: "50mb",
+  })
+);
+// app.use(express.json())
+dotenv.config();
+// app.use(bodyParser.urlencoded({
+//   extended: true
+// }));
 
-await connect()
+await connect();
 // app.set('trust proxy', true)
 
-app.use((req,res,next)=>{console.log(req.url);next()})
+app.use((req, res, next) => {
+  console.log(req.url);
+  next();
+});
 // Routes
 
 app.use("/cloth", checkToken, clothesRouter)
@@ -36,10 +42,10 @@ app.use("/users", userRouter)
 
 
 // global error handler middleware
-app.use(globalErrorHandler)
+app.use(globalErrorHandler);
 
 // listening
-const port = process.env.PORT || 3099
-app.listen(port,"0.0.0.0", () => {
-  console.log(`Let the adventures in Backend begin at port:${port}!!🙈`)
-})
+const port = process.env.PORT || 3099;
+app.listen(port, "0.0.0.0", () => {
+  console.log(`Let the adventures in Backend begin at port:${port}!!🙈`);
+});

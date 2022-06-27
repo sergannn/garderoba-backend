@@ -1,12 +1,12 @@
-import express from "express"
+import express from "express";
 
-const weatherApiRouter = express.Router()
+const weatherApiRouter = express.Router();
 
-weatherApiRouter
-    .get("/", (req,res) => {
-       const weatherApiKey = process.env.WeatherApiKey
-       console.log(weatherApiKey)
-       res.send(weatherApiKey)
-    })
+weatherApiRouter.get("/", (req, res) => {
+  const weatherApiKey = process.env.WeatherApiKey;
 
-export default weatherApiRouter
+  console.log(weatherApiKey);
+  res.send(weatherApiKey);
+});
+
+export default weatherApiRouter;
