@@ -15,11 +15,11 @@ clothesRouter.get("/closet", async (req, res, next) => {
   try {
     if (Object.keys(req.query).length === 0) {
       const clothes = await Cloth.find(); //we are sending all clothes from this
-
-      res.send(clothes);
+      console.log("the clothes to be send in closet-----", clothes);
+      res.send(clothes.reverse());
     } else {
       const clothes = await Cloth.find(req.query);
-      res.send(clothes);
+      res.send(clothes.reverse());
     }
   } catch (error) {
     next({
