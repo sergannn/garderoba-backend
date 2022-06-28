@@ -29,7 +29,7 @@ clothesRouter.get("/closet", async (req, res, next) => {
 clothesRouter.get("/favorite", async (req, res, next) => {
   // this is supposed to find all the favorite clothes of a user.
   try {
-    const clothes = await Cloth.find({ favorite: true }); //we are sending all clothes from this
+    const clothes = await Cloth.find({ favorite: true }); 
     res.send(clothes.reverse());
   } catch (error) {
     next({
@@ -74,7 +74,6 @@ clothesRouter.put("/:id", async (req, res, next) => {
   console.log("req here:", req.body);
   try {
     const id = req.params.id;
-    console.log("id", id);
     const cloth = await Cloth.findById(id);
     cloth.favorite = req.body.favorite;
     cloth.save();
