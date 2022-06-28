@@ -26,6 +26,7 @@ const checkToken = (req, res, next) => {
     jwt.verify(tokenToCheck, secret, (error, payload) => {
         console.log({ error, payload });
         if (error) {
+            console.log("error ruuun")
             return next(createError(401, error.message))
         }
 

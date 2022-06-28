@@ -23,7 +23,6 @@ userRouter
     .post("/signup", userValidators, async (req,res, next) => {
     try {
         const valResult = validationResult(req);
-        console.log("valresult empty",valResult.isEmpty())
         console.log("valResult", valResult)
         if (!valResult.isEmpty()) {
             next({ message: valResult.errors.map(err => err.msg), status: 400})
@@ -31,9 +30,21 @@ userRouter
         }
 
         req.body.password = await hash(req.body.password, 10)
-        const createUser = await User.create(req.body)
+        const user = await User.create(req.body)
+        
 
-        res.send({ createUser })
+         // * create token
+         const payload = { userId: user._id }
+         const options = { expiresIn: "300m" }
+         const token = jwt.sign(payload, process.env.JWT_SECRET, options)
+         console.log("token",token)
+
+         // ? Question: why do we need spread operator? why to json?
+         // * It is a BSON so we turn it to JSON 
+         res.send({ ...user.toJSON(), token })
+         console.log("registration successful");
+
+       
     } catch (error) {
         next(createError(400, error.message))
     }
@@ -68,7 +79,7 @@ userRouter
             // ? Question: why do we need spread operator? why to json?
             // * It is a BSON so we turn it to JSON 
             res.send({ ...findUserWithSameEmail.toJSON(), token })
-            console.log("registration successful");
+            console.log("login successful");
         } catch (error) {
             next(createError(400, "login failed, please try again"))
             console.log(error);
