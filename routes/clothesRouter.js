@@ -91,4 +91,19 @@ clothesRouter.put("/:id", async (req, res, next) => {
   }
 });
 
+// DELETE: Mark Your Cloth as Favorite Request
+clothesRouter.delete("/closet/:id", async (req, res, next) => {
+  try {
+    const item = await Cloth.findById(req.params.id);
+    if (!item) {
+      return next(createError(404, "cloth not found"));
+    }
+    item.remove();
+    const clothes = await Cloth.find();
+    res.send(clothes.reverse());
+  } catch (error) {
+    next({ status: 400, message: error.message });
+  }
+});
+
 export default clothesRouter;
