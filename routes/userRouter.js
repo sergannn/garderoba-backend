@@ -75,6 +75,16 @@ userRouter
         }
     })
 
+    .put("/:id", async (req, res, next) =>{
+        try {
+            const id = req.params.id
+            const user = await User.findByIdAndUpdate(req.params.id, req.body)
+            res.send(user)
+        } catch (error){
+            next(createError(400, error.message))
+        }
+    })
+
     .delete("/:id", async (req, res, next) => {
         try {
             const user = await User.findById(req.params.id)
