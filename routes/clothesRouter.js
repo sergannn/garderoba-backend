@@ -43,8 +43,6 @@ clothesRouter.get("/favorite", async (req, res, next) => {
 // GET: All Clothes from Current Weather 
 clothesRouter.get("/home", async (req, res, next) => {
 
-  // console.log("season is------", req.body.season);
-  // console.log("temperature from FE-----", req.query.temperature);
 
   const temperature = parseInt(req.query.temperature); //parsefloat later
   let season = "winter";
@@ -58,7 +56,7 @@ clothesRouter.get("/home", async (req, res, next) => {
   }
 
   try {
-    const clothesAsPerWeather = await Cloth.find({ season }); //we are sending all clothes from this
+    const clothesAsPerWeather = await Cloth.find({ season }); 
     res.send({ clothesAsPerWeather });
   } catch (error) {
     next({
@@ -71,7 +69,6 @@ clothesRouter.get("/home", async (req, res, next) => {
 
 // PUT: Mark Your Cloth as Favorite Request
 clothesRouter.put("/:id", async (req, res, next) => {
-  console.log("req here:", req.body);
   try {
     const id = req.params.id;
     const cloth = await Cloth.findById(id);
