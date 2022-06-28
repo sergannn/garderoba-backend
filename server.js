@@ -1,9 +1,9 @@
-import express from "express"
-import cors from "cors"
-import { connect } from "./libs/database.js"
-import globalErrorHandler from './middlewares/globalErrorHandler.js';
-import uploadRouter from './routes/uploadRouter.js'
-import clothesRouter from './routes/clothesRouter.js'
+import express from "express";
+import cors from "cors";
+import { connect } from "./libs/database.js";
+import globalErrorHandler from "./middlewares/globalErrorHandler.js";
+import uploadRouter from "./routes/uploadRouter.js";
+import clothesRouter from "./routes/clothesRouter.js";
 import weatherApiRouter from "./routes/weatherApiRouter.js";
 import dotenv from "dotenv"
 import bodyParser from "body-parser"
