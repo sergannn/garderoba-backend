@@ -45,13 +45,36 @@ clothesRouter.get("/favorite", async (req, res, next) => {
 });
 clothesRouter.get("/home", async (req, res, next) => {
   // this is supposed to find all the clothes of a user.
-  try {
-    const clothesTopBox = await Cloth.find({ type: "top" }); //we are sending all clothes from this
-    const clothesBottomBox = await Cloth.find({ type: "bottom" }); //we are sending all clothes from this
-    const favorites = await Cloth.find({ favorite: true });
+  console.log("season is------",req.body.season);
+  console.log("temperature from FE-----", req.query.temperature);
+ 
+  const temperature = parseInt(req.query.temperature); //parsefloat later
+  let season = {};
+  console.log(typeof temperature);
 
-    clothesTopBox.reverse();
-    clothesBottomBox.reverse();
+  
+  if(temperature >= 24){
+    season = {
+      category: "summer"
+    }
+  }else if(temperature <= 23 && temperature >= 12 ){
+    season = {
+      category: "fall"
+    }
+  }else{
+    season = {
+      category: "winter"
+    }
+  }
+
+  try {
+    
+    const clothesTopBox = await Cloth.find({ ...season,type: "top" }); //we are sending all clothes from this
+    const clothesBottomBox = await Cloth.find({ ...season, type: "bottom" }); //we are sending all clothes from this
+    const favorites = await Cloth.find({favorite:true})
+    
+    console.log(clothesTopBox.reverse());
+    console.log(clothesBottomBox.reverse());
     res.send({ clothesTopBox, clothesBottomBox, favorites });
   } catch (error) {
     next({
