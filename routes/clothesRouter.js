@@ -15,7 +15,7 @@ clothesRouter.get("/closet", async (req, res, next) => {
   try {
     if (Object.keys(req.query).length === 0) {
       const clothes = await Cloth.find(); //we are sending all clothes from this
-      console.log("the clothes to be send in closet-----", clothes);
+      // console.log("the clothes to be send in closet-----", clothes);
       res.send(clothes.reverse());
     } else {
       const clothes = await Cloth.find(req.query);
@@ -27,6 +27,21 @@ clothesRouter.get("/closet", async (req, res, next) => {
       message: error.message,
       originalError: error,
     });
+  }
+});
+
+clothesRouter.delete("/closet/:id", async (req, res, next) => {
+  console.log("req here---:", req.params.id);
+  try {
+    const item = await Cloth.findById(req.params.id);
+    if (!item) {
+      return next(createError(404, "cloth not found"));
+    }
+    item.remove();
+    const clothes = await Cloth.find();
+    res.send(clothes.reverse());
+  } catch (error) {
+    next({ status: 400, message: error.message });
   }
 });
 
