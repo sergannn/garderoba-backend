@@ -37,7 +37,7 @@ app.use((req, res, next) => {
 
 app.use("/cloth", checkToken, clothesRouter)
 app.use("/upload", checkToken, uploadRouter)
-app.use("/weatherApiKey", checkToken, weatherApiRouter)
+app.use("/weatherApiKey", weatherApiRouter)
 app.use("/users", userRouter)
 
 

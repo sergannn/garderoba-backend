@@ -3,7 +3,7 @@ import createError from "http-errors";
 import jwt from "jsonwebtoken"
 import User from "../models/User.js"
 
-dotenv.config()
+// dotenv.config()
 
 // This middleware can be used to check if a request contains a valid token
 const checkToken = (req, res, next) => {
