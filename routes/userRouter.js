@@ -89,7 +89,8 @@ userRouter
     .put("/:id", async (req, res, next) =>{
         try {
             const id = req.params.id
-            const user = await User.findByIdAndUpdate(req.params.id, req.body)
+            console.log(req.body);
+            const user = await User.findByIdAndUpdate(req.params.id, req.body, {new: true})
             res.send(user)
         } catch (error){
             next(createError(400, error.message))
