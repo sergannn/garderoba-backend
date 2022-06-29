@@ -74,7 +74,7 @@ userRouter
       const options = { expiresIn: "300m" };
       const token = jwt.sign(payload, process.env.JWT_SECRET, options);
     //   console.log("token", token);
-
+      console.log("user object in login", findUserWithSameEmail);
       // ? Question: why do we need spread operator? why to json?
       // * It is a BSON so we turn it to JSON
       res.send({ ...findUserWithSameEmail.toJSON(), token });

@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import Cloth from './Cloth.js'
 
 const { Schema, model } = mongoose
 const timestamps = true
