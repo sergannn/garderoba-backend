@@ -30,6 +30,21 @@ clothesRouter.get("/closet", async (req, res, next) => {
   }
 });
 
+// fav endpoint
+clothesRouter.get("/fav", async (req, res, next) => {
+    // this is supposed to find all the clothes of a user.
+    try {
+        const clothes = await Cloth.find({favorite: true});
+        res.send(clothes.reverse());
+    } catch (error) {
+      next({
+        status: 401,
+        message: error.message,
+        originalError: error,
+      });
+    }
+  });
+
 clothesRouter.delete("/closet/:id", async (req, res, next) => {
   console.log("req here---:", req.params.id);
   try {
