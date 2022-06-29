@@ -20,5 +20,6 @@ const clothSchema = new mongoose.Schema(
   { timestamps }
 );
 
+
 const Cloth = model("cloth", clothSchema);
 export default Cloth;

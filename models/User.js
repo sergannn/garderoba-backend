@@ -15,6 +15,15 @@ const userSchema = new mongoose.Schema({
     
 }, {timestamps})
 
+// Example of controlling how a MongoDB BSON Document gets converted to JSON
+userSchema.options.toJSON = {
+    transform: function(document, documentAsJSON, options) {
+        delete documentAsJSON.__v
+        delete documentAsJSON.password
+        return documentAsJSON
+    }
+}
+
 const User = model("user", userSchema)
 export default User
 

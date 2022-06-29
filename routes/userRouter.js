@@ -68,6 +68,7 @@ userRouter
             }
 
             console.log("hash:",findUserWithSameEmail.password);
+            console.log("user:", findUserWithSameEmail)
 
             // TODO: make the token expire after 5min and then resend one automatically.
             // * create token
