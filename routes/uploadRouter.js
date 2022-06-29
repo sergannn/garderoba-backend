@@ -1,5 +1,7 @@
 import Cloth from "../models/Cloth.js";
+import express from "express";
 
+const uploadRouter = express.Router();
 // POST: Add an Item/Cloth from FE
 uploadRouter.post("/", async (req, res, next) => {
 

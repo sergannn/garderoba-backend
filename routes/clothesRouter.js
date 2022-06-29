@@ -1,4 +1,5 @@
 import express from "express";
+import colorConverter from "../middlewares/colorConverter.js";
 import Cloth from "../models/Cloth.js";
 
 const clothesRouter = express.Router();
@@ -6,15 +7,29 @@ const clothesRouter = express.Router();
 // Search Endpoints
 
 // GET: All Clothes
-clothesRouter.get("/closet", async (req, res, next) => {
+clothesRouter.get("/closet",async (req, res, next) => {
   // this is supposed to find all the clothes of a user.
   try {
     if (Object.keys(req.query).length === 0) {
         const clothes = await Cloth.find(); //we are sending all clothes from this
         res.send(clothes.reverse());
     } else {
-        const clothes = await Cloth.find(req.query);
-        res.send(clothes.reverse());
+        console.log(req.query.color);
+        console.log(typeof req.query.color);
+
+        if(req.query.color){
+          const colorName = colorConverter(req.query.color)
+          console.log("colorName", colorName);
+
+          const cloth = await Cloth.find({color: Object.values(colorName)})
+          console.log(cloth);
+          res.send(cloth)
+        }
+
+        else{
+        const clothes = await Cloth.find(req.query); 
+        res.send(clothes.reverse())
+      }
     }
   } catch (error) {
       next({
@@ -24,6 +39,9 @@ clothesRouter.get("/closet", async (req, res, next) => {
       });
   }
 });
+
+
+
 
 // GET: All Favorites
 clothesRouter.get("/favorite", async (req, res, next) => {
@@ -101,5 +119,12 @@ clothesRouter.delete("/closet/:id", async (req, res, next) => {
     next({ status: 400, message: error.message });
   }
 });
+
+
+
+
+
+
+
 
 export default clothesRouter;

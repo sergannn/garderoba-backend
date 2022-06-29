@@ -1,5 +1,5 @@
-const colorConverter = (req,res,next)=>{
-
+const colorConverter = (obj)=>{
+    console.log("received obj ",obj);
     const hexColors = [
         { black: "#000"},
         { white: "#fff"},
@@ -8,16 +8,15 @@ const colorConverter = (req,res,next)=>{
     
     
     
-    const color = req.query.color
+    const color = obj
 
     if(color){
-        const mapColors = hexColors.find(item => console.log(Object.keys(item) === color))
+
+        const foundColor = hexColors.find(item => Object.keys(item) == color)
+        
+        return foundColor;
+
     }
-
-    return;
-
-
-
     
 }
 
