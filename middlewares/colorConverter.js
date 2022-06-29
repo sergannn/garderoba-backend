@@ -1,20 +1,29 @@
-const colorConverter = (obj)=>{
-    console.log("received obj ",obj);
+const colorConverter = (str)=>{
+
     const hexColors = [
-        { black: "#000"},
-        { white: "#fff"},
-        { blue:"#1C86EE"},
-    ]  
+
+        { black:    "#000"      },
+        { white:    "#fff"      },
+        { blue:     "#1C86EE"   },
+        { red:      "#EE3B3B"   },
+        { pink:     "#FF82AB"   },
+        { beige:    "#E1C699"   },
+        { lightgreen:"#C1FFC1"  },
+        { green:    "#2E8B57"   },
+        { gray:     "#7A8B8B"   },
+        { gold:     "#FFB90F"   },
+        { brown:    "#8B4500"   }
+    
+    ]      
     
     
-    
-    const color = obj
+    const color = str
 
     if(color){
 
-        const foundColor = hexColors.find(item => Object.keys(item) == color)
+        const foundColorObject = hexColors.find(item => Object.keys(item) == color)
         
-        return foundColor;
+        return foundColorObject;
 
     }
     

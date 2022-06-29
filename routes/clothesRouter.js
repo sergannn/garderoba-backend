@@ -13,15 +13,15 @@ clothesRouter.get("/closet",async (req, res, next) => {
     if (Object.keys(req.query).length === 0) {
         const clothes = await Cloth.find(); //we are sending all clothes from this
         res.send(clothes.reverse());
-    } else {
-        console.log(req.query.color);
-        console.log(typeof req.query.color);
-
+    } 
+      //     
+      //  multiple query handling 
+    else {
         if(req.query.color){
           const colorName = colorConverter(req.query.color)
           console.log("colorName", colorName);
 
-          const cloth = await Cloth.find({color: Object.values(colorName)})
+          const cloth = await Cloth.find({...req.query, color: Object.values(colorName)})
           console.log(cloth);
           res.send(cloth)
         }
