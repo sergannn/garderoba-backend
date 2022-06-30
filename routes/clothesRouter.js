@@ -1,7 +1,7 @@
 import express from "express";
 import colorConverter from "../middlewares/colorConverter.js";
 import Cloth from "../models/Cloth.js";
-import User from "../models/User.js";
+
 
 const clothesRouter = express.Router();
 
