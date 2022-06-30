@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import Cloth from './Cloth.js'
 
 const { Schema, model } = mongoose
 const timestamps = true
@@ -14,6 +15,15 @@ const userSchema = new mongoose.Schema({
     clothes:      { type: [Schema.Types.ObjectId], ref: 'cloth'  },
     
 }, {timestamps})
+
+// Example of controlling how a MongoDB BSON Document gets converted to JSON
+userSchema.options.toJSON = {
+    transform: function(document, documentAsJSON, options) {
+        delete documentAsJSON.__v
+        delete documentAsJSON.password
+        return documentAsJSON
+    }
+}
 
 const User = model("user", userSchema)
 export default User

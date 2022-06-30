@@ -9,9 +9,9 @@ POST http://localhost:9000/users/signup
 Content-Type: application/json
 
 {
-    "username": "Eleni 2",
-    "email": "eleni@gmails.com",
-    "password": "123456789"
+    "username": "eleni3",
+    "email": "eleni3@gmail.com",
+    "password": "1234567890"
 
 }
 
@@ -36,3 +36,11 @@ Content-Type: application/json
     
 
 }
+
+###
+
+// Get all fav clothes
+GET http://localhost:9000/cloth/fav
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmJjMGFmYWU4ZTE1N2UyOWMxY2FlZDAiLCJpYXQiOjE2NTY0OTA3NDYsImV4cCI6MTY1NjUwODc0Nn0.wjZ1a_I2Tw1BSFmpPLfWg890Vc5DW6gAeltuub0tD9M
+
+

@@ -1,33 +1,28 @@
-import express from "express";
-import multer from "multer";
 import Cloth from "../models/Cloth.js";
-import path from "path";
+import express from "express";
+import User from "../models/User.js";
+import createError from "http-errors";
 
 const uploadRouter = express.Router();
-// const uploadAPic = multer({ dest: "uploads/", limits: { fileSize: 1024 *1024 }  });
-
-// const handleUpload = uploadAPic.fields([{ name: "selectedImage", maxCount: 1 }]);
-
+// POST: Add an Item/Cloth from FE
 uploadRouter.post("/", async (req, res, next) => {
-  // console.log(req.files);
-  // console.log(req.body);
 
   try {
-    const cloth = await Cloth.create({...req.body, category: req.body.season});
 
-    // if (cloth.type === "top") {
-    //   const clothTopBox = await Cloth.find({ type: "top" });
-    //   clothTopBox.reverse();
+    // console.log("req payload during upload", req.body);
+    // console.log("current user is---",req.body.user);
 
-    //   res.send(clothTopBox);
-    //   console.log(clothTopBox);
-    // } else {
-    //   const clothBottomBox = await Cloth.find({ type: "bottom" });
-    //   clothBottomBox.reverse();
-    //   res.send(clothBottomBox);
-    // }
-    // console.log(cloth);
+    const user = await User.findById(req.body.user)
+    if(!user){
+      return next(createError(404, "User not found"))
+    }
+    const cloth = await Cloth.create({...req.body, category: req.body.season, type: req.body.type});
+    
+    user.clothes.push(cloth)
+    await user.save()
     res.send(cloth);
+
+
   } catch (error) {
     next({
       status: 400,
@@ -37,10 +32,10 @@ uploadRouter.post("/", async (req, res, next) => {
   }
 });
 
+// GET: Fetch each cloth object with Image Id as a filter
 uploadRouter.get("/", async (req, res, next) => {
   try {
     const cloth = await Cloth.findById("62ac68d5f321765b93ec8c02");
-
     res.send(cloth);
   } catch (error) {
     next({

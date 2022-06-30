@@ -12,7 +12,6 @@ import checkToken from "./middlewares/checkToken.js";
 
 const app = express();
 
-// Middleware
 app.use(cors());
 app.use(
   bodyParser.json({
@@ -20,30 +19,21 @@ app.use(
     limit: "50mb",
   })
 );
-// app.use(express.json())
 dotenv.config();
-// app.use(bodyParser.urlencoded({
-//   extended: true
-// }));
-
+// Connection 
 await connect();
-// app.set('trust proxy', true)
-
+// Request logger
 app.use((req, res, next) => {
   console.log(req.url);
   next();
 });
-// Routes
-
+// Routes with middleware
 app.use("/cloth", checkToken, clothesRouter)
 app.use("/upload", checkToken, uploadRouter)
 app.use("/weatherApiKey", weatherApiRouter)
 app.use("/users", userRouter)
-
-
 // global error handler middleware
 app.use(globalErrorHandler);
-
 // listening
 const port = process.env.PORT || 3099;
 app.listen(port, "0.0.0.0", () => {
