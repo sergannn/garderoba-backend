@@ -58,6 +58,7 @@ clothesRouter.get("/favorite", async (req, res, next) => {
   }
 });
 
+
 // GET: All Clothes from Current Weather 
 clothesRouter.get("/home", async (req, res, next) => {
 
@@ -120,8 +121,46 @@ clothesRouter.delete("/closet/:id", async (req, res, next) => {
   }
 });
 
+clothesRouter.get("/favorite", async (req, res, next) => {
+  // this is supposed to find all the favorite clothes of a user.
+  try {
+    const clothes = await Cloth.find(); //we are sending all clothes from this
+    res.send(clothes.reverse());
+  } catch (error) {
+    next({
+      status: 401,
+      message: error.message,
+      originalError: error,
+    });
+  }
+});
+clothesRouter.get("/home", async (req, res, next) => {
+  // this is supposed to find all the clothes of a user.
+  // console.log("season is------",req.body.season);
+  // console.log("temperature from FE-----", req.query.temperature);
+ 
+  const temperature = parseInt(req.query.temperature); //parsefloat later
+  let season = {};
+  console.log(typeof temperature);
 
 
+  try {
+    
+    const clothesTopBox = await Cloth.find({ ...season,type: "top" }); //we are sending all clothes from this
+    const clothesBottomBox = await Cloth.find({ ...season, type: "bottom" }); //we are sending all clothes from this
+    const favorites = await Cloth.find({favorite:true})
+    
+    // console.log(clothesTopBox.reverse());
+    // console.log(clothesBottomBox.reverse());
+    res.send({ clothesTopBox, clothesBottomBox, favorites });
+  } catch (error) {
+    next({
+      status: 401,
+      message: error.message,
+      originalError: error,
+    });
+  }
+});
 
 
 
