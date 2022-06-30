@@ -78,7 +78,7 @@ clothesRouter.get("/home", async (req, res, next) => {
 
   try {
     const clothesAsPerWeather = await Cloth.find({ season, user: req.userData.userId }); 
-    clothesAsPerWeather.reverse()
+    clothesAsPerWeather.reverse();
     res.send({ clothesAsPerWeather });
   } catch (error) {
     next({
