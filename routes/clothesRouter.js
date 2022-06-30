@@ -1,26 +1,54 @@
 import express from "express";
+import colorConverter from "../middlewares/colorConverter.js";
 import Cloth from "../models/Cloth.js";
-import weatherApiRouter from "./weatherApiRouter.js";
 
 const clothesRouter = express.Router();
 
-// function clothProcessor(presentWeather) {
-//   // check temperature, rain, humidity and snowing parameters of weather api response
-//   //
-// }
+// Search Endpoints
 
-// search endpoint
-clothesRouter.get("/closet", async (req, res, next) => {
+// GET: All Clothes
+clothesRouter.get("/closet",async (req, res, next) => {
   // this is supposed to find all the clothes of a user.
   try {
     if (Object.keys(req.query).length === 0) {
-      const clothes = await Cloth.find(); //we are sending all clothes from this
-      // console.log("the clothes to be send in closet-----", clothes);
-      res.send(clothes.reverse());
-    } else {
-      const clothes = await Cloth.find(req.query);
-      res.send(clothes.reverse());
+        const clothes = await Cloth.find(); //we are sending all clothes from this
+        res.send(clothes.reverse());
+    } 
+      //     
+      //  multiple query handling 
+    else {
+        if(req.query.color){
+          const colorName = colorConverter(req.query.color)
+          console.log("colorName", colorName);
+
+          const cloth = await Cloth.find({...req.query, color: Object.values(colorName)})
+          console.log(cloth);
+          res.send(cloth)
+        }
+
+        else{
+        const clothes = await Cloth.find(req.query); 
+        res.send(clothes.reverse())
+      }
     }
+  } catch (error) {
+      next({
+        status: 401,
+        message: error.message,
+        originalError: error,
+      });
+  }
+});
+
+
+
+
+// GET: All Favorites
+clothesRouter.get("/favorite", async (req, res, next) => {
+  // this is supposed to find all the favorite clothes of a user.
+  try {
+    const clothes = await Cloth.find({ favorite: true }); 
+    res.send(clothes.reverse());
   } catch (error) {
     next({
       status: 401,
@@ -30,23 +58,56 @@ clothesRouter.get("/closet", async (req, res, next) => {
   }
 });
 
-// fav endpoint
-clothesRouter.get("/fav", async (req, res, next) => {
-    // this is supposed to find all the clothes of a user.
-    try {
-        const clothes = await Cloth.find({favorite: true});
-        res.send(clothes.reverse());
-    } catch (error) {
-      next({
-        status: 401,
-        message: error.message,
-        originalError: error,
-      });
-    }
-  });
 
+// GET: All Clothes from Current Weather 
+clothesRouter.get("/home", async (req, res, next) => {
+
+
+  const temperature = parseInt(req.query.temperature); //parsefloat later
+  let season = "winter";
+  console.log(typeof temperature);
+
+  if (temperature >= 24) {
+    season = "summer";
+  }
+  if (temperature <= 23 && temperature >= 12) {
+    season = "fall";
+  }
+
+  try {
+    const clothesAsPerWeather = await Cloth.find({ season }); 
+    res.send({ clothesAsPerWeather });
+  } catch (error) {
+    next({
+      status: 401,
+      message: error.message,
+      originalError: error,
+    });
+  }
+});
+
+// PUT: Mark Your Cloth as Favorite Request
+clothesRouter.put("/:id", async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const cloth = await Cloth.findById(id);
+    cloth.favorite = req.body.favorite;
+    cloth.save();
+
+    res.send(cloth);
+    if (!cloth) {
+      return next({ status: 404, message: "not found" });
+    }
+  } catch (error) {
+    next({ 
+      status: 400, 
+      message: error.message 
+    });
+  }
+});
+
+// DELETE: Remove Cloth
 clothesRouter.delete("/closet/:id", async (req, res, next) => {
-  console.log("req here---:", req.params.id);
   try {
     const item = await Cloth.findById(req.params.id);
     if (!item) {
@@ -82,20 +143,6 @@ clothesRouter.get("/home", async (req, res, next) => {
   let season = {};
   console.log(typeof temperature);
 
-  
-  if(temperature >= 24){
-    season = {
-      category: "summer"
-    }
-  }else if(temperature <= 23 && temperature >= 12 ){
-    season = {
-      category: "fall"
-    }
-  }else{
-    season = {
-      category: "winter"
-    }
-  }
 
   try {
     
@@ -115,40 +162,8 @@ clothesRouter.get("/home", async (req, res, next) => {
   }
 });
 
-clothesRouter.put("/:id", async (req, res, next) => {
-  console.log("req here:", req.body);
-  try {
-    const id = req.params.id;
-    console.log("id", id);
-    const cloth = await Cloth.findById(id);
-    cloth.favorite = req.body.favorite;
-    cloth.save();
 
-    res.send(cloth);
-    if (!cloth) {
-      return next({ status: 404, message: "not found" });
-    }
-  } catch (error) {
-    next({ status: 400, message: error.message });
-  }
 
-  //  remove add favorite, edit the season. for all kinds of update
-});
 
-// galleryRouter.get("/?favorite=true", async(req,res,next)=>{
-//     try {
-
-//         res.send([])
-
-//     } catch (error) {
-//         next({
-//             status: 401,
-//             message: error.message,
-//             originalError: error
-//         })
-//     }
-// })
-
-//
 
 export default clothesRouter;
