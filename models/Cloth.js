@@ -14,11 +14,24 @@ const clothSchema = new mongoose.Schema(
     favorite:   { type: Boolean, default: false },
     type:       { type: String, enum: ["top", "bottom", "full"] },
     color:      { type: String },
-    season:     { type: String, enum: ["summer", "winter", "fall", "rainy", "spring"], required},
-    style:      { type: String, enum: ["casual", "formal", "work", "holiday", "home"] },
+    season:     { type: String, enum: ["summer", "winter", "in-between"], required},
+    style:      { type: String, enum: ["casual", "formal", "work", "sports", "night-out","lounge-wear"] },
   },
   { timestamps }
 );
+
+clothSchema.pre("remove", async function(){
+
+  const id = this._id.toString()
+  console.log("Cloth is being removed " + id)
+
+  const user = await User.findById(this.user)
+
+  if(user){
+    user.clothes = user.clothes.filter(x=> x.toString() != id)
+    await user.save()
+  }
+})
 
 
 const Cloth = model("cloth", clothSchema);

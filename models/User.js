@@ -25,6 +25,13 @@ userSchema.options.toJSON = {
     }
 }
 
+userSchema.pre("remove", async function(){
+    console.log("User is being removed " + this._id)
+    await Cloth.deleteMany({ user: this._id })
+
+})
+
+
 const User = model("user", userSchema)
 export default User
 

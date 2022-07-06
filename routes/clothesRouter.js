@@ -62,18 +62,18 @@ clothesRouter.get("/favorite", async (req, res, next) => {
 // GET: All Clothes from Current Weather 
 clothesRouter.get("/home", async (req, res, next) => {
 
-  console.log("req userdata is---",req.userData);
+  // console.log("req userdata is---",req.userData);
 
 
   const temperature = parseInt(req.query.temperature); //parsefloat later
   let season = "winter";
-  console.log(typeof temperature);
+  // console.log(typeof temperature);
 
   if (temperature >= 24) {
     season = "summer";
   }
   if (temperature <= 23 && temperature >= 12) {
-    season = "fall";
+    season = "in-between";
   }
 
   try {
@@ -117,8 +117,9 @@ clothesRouter.delete("/closet/:id", async (req, res, next) => {
       return next(createError(404, "cloth not found"));
     }
     item.remove();
-    const clothes = await Cloth.find();   //check this with Angela
-    res.send(clothes.reverse());
+    // const clothes = await Cloth.find({user: req.userData.userId});   //check this with Angela
+    // res.send(clothes.reverse());
+    res.send("cloth deleted, ok!")
   } catch (error) {
     next({ status: 400, message: error.message });
   }
