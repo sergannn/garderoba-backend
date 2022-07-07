@@ -114,8 +114,6 @@ clothesRouter.delete("/closet/:id", async (req, res, next) => {
       return next(createError(404, "cloth not found"));
     }
     item.remove();
-    // const clothes = await Cloth.find({user: req.userData.userId});   //check this with Angela
-    // res.send(clothes.reverse());
     res.send("cloth deleted, ok!")
   } catch (error) {
     next({ status: 400, message: error.message });
