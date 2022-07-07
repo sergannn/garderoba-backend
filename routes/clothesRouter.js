@@ -40,9 +40,6 @@ clothesRouter.get("/closet",async (req, res, next) => {
   }
 });
 
-
-
-
 // GET: All Favorites
 clothesRouter.get("/favorite", async (req, res, next) => {
   // this is supposed to find all the favorite clothes of a user.
