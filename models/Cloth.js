@@ -9,25 +9,14 @@ const trim = true;
 
 const clothSchema = new mongoose.Schema(
   {
-    user: { type: Schema.Types.ObjectId, ref: "user" },
-    image: { type: String },
+    user:     { type: Schema.Types.ObjectId, ref: "user" },
+    image:    { type: String },
     favorite: { type: Boolean, default: false },
-    type: { type: String, enum: ["top", "bottom", "full"] },
-    color: { type: String },
+    type:     { type: String, enum: ["top", "bottom", "full"] },
+    color:    { type: String },
     // season:     { type: String, enum: ["summer", "winter", "in-between"], required},
-    season: { type: [String], required },
-    style: {
-      type: String,
-      enum: [
-        "casual",
-        "formal",
-        "work",
-        "sports",
-        "night-out",
-        "lounge-wear",
-        "rainy",
-      ],
-    },
+    season:   { type: [String], required },
+    style:    { type: String, enum: ["casual","formal","work","sports","night-out","lounge-wear","rainy",] },
   },
   { timestamps }
 );
