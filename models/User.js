@@ -9,10 +9,11 @@ const trim = true
 
 const userSchema = new mongoose.Schema({
 
-    username:     { type: String,  trim, unique },
+    username:     { type: String,  trim },
     email:        { type: String,  trim, unique },
     password:     { type: String, required },
     clothes:      { type: [Schema.Types.ObjectId], ref: 'cloth'  },
+    profileImage: {type: String, default: "Abc.png"}
     
 }, {timestamps})
 

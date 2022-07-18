@@ -86,6 +86,7 @@ userRouter
   })
 
     .put("/:id", async (req, res, next) =>{
+      console.log(req.body);
         try {
             const id = req.params.id
             console.log(req.body);
