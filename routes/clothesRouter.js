@@ -63,14 +63,18 @@ clothesRouter.get("/home", async (req, res, next) => {
 
 
   const temperature = parseInt(req.query.temperature); //parsefloat later
-  let season = "winter";
-  // console.log(typeof temperature);
-
-  if (temperature >= 24) {
-    season = "summer";
+  let season;
+  if (temperature <= 10) {
+   season = "winter";
+  
   }
-  if (temperature <= 23 && temperature >= 12) {
-    season = "in-between";
+
+  if (temperature > 10 && temperature <= 20) {
+   season = "in-between";
+  }
+  
+  if (temperature > 20) {
+    season = "summer";
   }
 
   try {
